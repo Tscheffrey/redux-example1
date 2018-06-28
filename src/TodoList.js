@@ -10,18 +10,22 @@ class TodoList extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <ul>
-          {this.props.todos.map(todo => (
-            <li key={todo.id}>
-              <button onClick={this.deleteItem.bind(this, todo.id)} data-itemid={todo.id}>x</button>
-              {todo.text}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+
+    if(this.props.todos.length > 0) {
+      return (
+        <div>
+          <ul>
+            {this.props.todos.map(todo => (
+              <li key={todo.id}>
+                <button onClick={this.deleteItem.bind(this, todo.id)} data-itemid={todo.id}>x</button>
+                {todo.text}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    else return 'Add some todos!'
   }
 }
 
