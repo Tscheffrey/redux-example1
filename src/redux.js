@@ -1,17 +1,3 @@
-// const initialState = {
-//     'rJewgTUQGX' : {
-//       text: 'this is the first TODO'
-//     }
-// };
-//
-//
-// export function configureStore(initialState = {}) {
-//   const store = createStore(reducers, initialState);
-//   return store;
-// };
-//
-// export const store = configureStore()
-
 import Shortid from 'shortid'
 
 
