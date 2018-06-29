@@ -17,6 +17,7 @@ export const removeTodo = todo => ({
 // reducers.js
 
 const initialState = {
+    todo: {}
     // 'rJewgTUQGX' : {
     //   text: 'this is the first TODO'
     // },
@@ -30,12 +31,13 @@ export const todo = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_TODO':
       let newTodo = {text: action.todo.text}
-      let newState = Object.assign({}, state, {[Shortid.generate()]:newTodo})
+      let newState = Object.assign({}, state)
+      newState.todo[Shortid.generate()] = newTodo
       return newState;
 
     case 'REMOVE_TODO':
       let newState2 = Object.assign({}, state)
-      delete newState2[action.todo.id]
+      delete newState2.todo[action.todo.id]
       return newState2
 
     default:
@@ -59,9 +61,9 @@ export const store = configureStore();
 // Selectors
 
 export const todoSelector = (state) => {
-  let selectedState = []
-  for (let todoId in state) {
-    selectedState.push(Object.assign({}, state[todoId], {id: todoId}))
+  let todos = []
+  for (let todoId in state.todo) {
+    todos.push(Object.assign({}, state.todo[todoId], {id: todoId}))
   }
-  return selectedState
+  return todos
 }
