@@ -14,6 +14,11 @@ export const removeTodo = todo => ({
   todo,
 })
 
+export const toggleTodo = todo => ({
+  type: 'TOGGLE_TODO',
+  todo,
+})
+
 // reducers.js
 
 const initialState = {
@@ -39,6 +44,11 @@ export const todo = (state = initialState, action) => {
       let newState2 = Object.assign({}, state)
       delete newState2.todo[action.todo.id]
       return newState2
+
+    case 'TOGGLE_TODO':
+      let newState3 = Object.assign({}, state)
+      newState3.todo[action.todo.id].done = !!!newState3.todo[action.todo.id].done
+      return newState3
 
     default:
       return state;

@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import {
   addTodo,
   removeTodo,
-  todoSelector
+  toggleTodo,
+  todoSelector,
 } from './redux';
 
 class TodoList extends Component {
@@ -13,8 +14,17 @@ class TodoList extends Component {
   //   super(props)
   // }
 
-  deleteItem(id){
-    if(this.props.removeTodo) this.props.removeTodo({id})
+  deleteItem(todo){
+    if(this.props.removeTodo) this.props.removeTodo({id:todo.id})
+  }
+
+  toggleDone(todo) {
+      if(this.props.toggleTodo) this.props.toggleTodo(todo)
+  }
+
+  generateDoneButtonText(todo){
+    if(todo.done) return 'done ✅'
+    else return 'not done yet ❌'
   }
 
   render() {
@@ -24,8 +34,9 @@ class TodoList extends Component {
           <ul>
             {this.props.todos.map(todo => (
               <li key={todo.id}>
-                <button onClick={this.deleteItem.bind(this, todo.id)} data-itemid={todo.id}>x</button>
+                <button onClick={this.deleteItem.bind(this, todo)} data-itemid={todo.id}>🗑</button>
                 {todo.text}
+                <button onClick={this.toggleDone.bind(this, todo)} data-itemid={todo.id}>{this.generateDoneButtonText(todo)}</button>
               </li>
             ))}
           </ul>
@@ -44,6 +55,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = {
   addTodo,
   removeTodo,
+  toggleTodo
 };
 
 const TodoListContainer = connect(
