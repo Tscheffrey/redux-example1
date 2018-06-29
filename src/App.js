@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
+
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
 import './App.css';
 
 import Shortid from 'shortid'
