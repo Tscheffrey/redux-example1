@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'
+import { store } from './redux'
 
 import './App.css';
 
 import Shortid from 'shortid'
 
-import TodoInput from './TodoInput'
-import TodoList from './TodoList'
+import TodoInputContainer from './TodoInput'
+import TodoListContainer from './TodoList'
 
 class App extends Component {
   constructor(props) {
@@ -41,9 +41,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <TodoInput onAdd={this.onAddTodo}/>
-        <TodoList todos={this.state.todos} onRemove={this.onRemoveTodo}/>
-      </div>
+        <TodoInputContainer store={store}/>
+        <Provider store={store}>
+        <TodoListContainer/>
+        </Provider>
+    </div>
     );
   }
 }

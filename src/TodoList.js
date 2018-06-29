@@ -1,4 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+
+import { connect } from 'react-redux';
+
+import {
+  addTodo,
+  removeTodo,
+  todoSelector
+} from './redux';
 
 class TodoList extends Component {
   // constructor(props){
@@ -6,11 +14,10 @@ class TodoList extends Component {
   // }
 
   deleteItem(id){
-    if(this.props.onRemove) this.props.onRemove(id)
+    if(this.props.removeTodo) this.props.removeTodo({id})
   }
 
   render() {
-
     if(this.props.todos.length > 0) {
       return (
         <div>
@@ -29,4 +36,19 @@ class TodoList extends Component {
   }
 }
 
-export default TodoList;
+// TodoListContainerContainer.js
+const mapStateToProps = (state, ownProps) => ({
+  todos: todoSelector(state.todo),
+});
+
+const mapDispatchToProps = {
+  addTodo,
+  removeTodo,
+};
+
+const TodoListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoList);
+
+export default TodoListContainer

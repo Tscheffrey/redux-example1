@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+
+import {
+  addTodo,
+  todoSelector
+} from './redux';
+
 class TodoInput extends Component {
   constructor(props){
     super(props)
@@ -12,7 +19,7 @@ class TodoInput extends Component {
 
   onAddClick(e){
     if(this.state.text.length > 0){
-      if(this.props.onAdd) this.props.onAdd({text:this.state.text})
+      if(this.props.addTodo) this.props.addTodo({text:this.state.text})
       this.setState({text:''})
     }
   }
@@ -36,4 +43,18 @@ class TodoInput extends Component {
   }
 }
 
-export default TodoInput;
+// TodoListContainerContainer.js
+const mapStateToProps = (state, ownProps) => ({
+  todos: todoSelector(state.todo),
+});
+
+const mapDispatchToProps = {
+  addTodo: addTodo,
+};
+
+const TodoInputContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoInput);
+
+export default TodoInputContainer
